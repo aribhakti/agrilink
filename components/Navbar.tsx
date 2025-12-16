@@ -45,6 +45,8 @@ const Navbar: React.FC = () => {
                   src="/logo.png" 
                   alt="PT. ATS - Agrilink Teknologi Solusi" 
                   className="h-12 md:h-20 w-auto object-contain py-1 transition-transform duration-300 group-hover:scale-105"
+                  width="80"
+                  height="80"
                   onError={() => setImgError(true)}
                 />
               ) : (

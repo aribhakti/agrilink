@@ -22,7 +22,6 @@ const PesticideRegistration: React.FC = () => {
                 src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=2070" 
                 alt="Lab Research" 
                 className="w-full h-full object-cover"
-                fetchPriority="high"
                 loading="eager"
              />
              <div className="absolute inset-0 bg-blue-900/80 mix-blend-multiply"></div>

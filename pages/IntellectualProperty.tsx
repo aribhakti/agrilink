@@ -18,7 +18,6 @@ const IntellectualProperty: React.FC = () => {
                 src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=2070" 
                 alt="Intellectual Property Law" 
                 className="w-full h-full object-cover"
-                fetchPriority="high"
                 loading="eager"
              />
              <div className="absolute inset-0 bg-slate-900/90 mix-blend-multiply"></div>

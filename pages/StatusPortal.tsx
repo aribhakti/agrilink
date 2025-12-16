@@ -38,7 +38,6 @@ const StatusPortal: React.FC = () => {
                 src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&q=80&w=2072" 
                 alt="Digital Agriculture Status Tracking" 
                 className="w-full h-full object-cover"
-                fetchPriority="high"
                 loading="eager"
              />
              <div className="absolute inset-0 bg-gray-900/80 mix-blend-multiply"></div>

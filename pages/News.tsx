@@ -1,37 +1,37 @@
 import React from 'react';
 import { Calendar, User, ArrowRight, BookOpen } from 'lucide-react';
 
-const News: React.FC = () => {
-  const articles = [
-    {
-      id: 1,
-      title: "Understanding Law No. 12 of 1992",
-      excerpt: "A deep dive into the Plant Cultivation Systems law that forms the backbone of agricultural regulation in Indonesia.",
-      date: "Oct 12, 2023",
-      author: "Satrio",
-      category: "Regulation",
-      image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: 2,
-      title: "New Efficacy Test Standards for 2024",
-      excerpt: "The Ministry of Agriculture has updated the protocols for bio-efficacy testing. Here is what you need to know to ensure compliance.",
-      date: "Nov 05, 2023",
-      author: "Admin",
-      category: "Update",
-      image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: 3,
-      title: "Accelerating Market Entry for Organic Fertilizers",
-      excerpt: "Strategies to streamline the administrative requirements for organic certification and registration.",
-      date: "Jan 15, 2024",
-      author: "Ina",
-      category: "Guide",
-      image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800"
-    }
-  ];
+const ARTICLES = [
+  {
+    id: 1,
+    title: "Understanding Law No. 12 of 1992",
+    excerpt: "A deep dive into the Plant Cultivation Systems law that forms the backbone of agricultural regulation in Indonesia.",
+    date: "Oct 12, 2023",
+    author: "Satrio",
+    category: "Regulation",
+    image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: 2,
+    title: "New Efficacy Test Standards for 2024",
+    excerpt: "The Ministry of Agriculture has updated the protocols for bio-efficacy testing. Here is what you need to know to ensure compliance.",
+    date: "Nov 05, 2023",
+    author: "Admin",
+    category: "Update",
+    image: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    id: 3,
+    title: "Accelerating Market Entry for Organic Fertilizers",
+    excerpt: "Strategies to streamline the administrative requirements for organic certification and registration.",
+    date: "Jan 15, 2024",
+    author: "Ina",
+    category: "Guide",
+    image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800"
+  }
+];
 
+const News: React.FC = () => {
   const handleReadArticle = (title: string) => {
     alert(`Opening article: "${title}"\n\n(This is a demo interaction. In a production environment, this would navigate to the full article page.)`);
   };
@@ -55,7 +55,7 @@ const News: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {articles.map(article => (
+            {ARTICLES.map(article => (
                <article 
                   key={article.id} 
                   onClick={() => handleReadArticle(article.title)}

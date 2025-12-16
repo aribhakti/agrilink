@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import * as d3 from 'd3';
 import { CLIENT_REGIONS } from '../constants';
 import { ClientRegion } from '../types';
@@ -13,7 +13,7 @@ const ISLAND_PATHS = [
 ];
 
 // Memoized Map Component to prevent full re-renders
-const ClientMap = React.memo(({ onHover, hoveredId }: { onHover: (region: ClientRegion | null) => void, hoveredId: string | null }) => {
+const ClientMap = memo(({ onHover, hoveredId }: { onHover: (region: ClientRegion | null) => void, hoveredId: string | null }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [initialized, setInitialized] = useState(false);
 
@@ -41,14 +41,17 @@ const ClientMap = React.memo(({ onHover, hoveredId }: { onHover: (region: Client
        .attr("stroke", "#cbd5e1") // slate-300
        .attr("stroke-width", 1);
 
-    // Define Nodes
-    const nodes = [
+    // Define Nodes safe handling
+    const rawNodes = [
       { ...CLIENT_REGIONS.find(c => c.id === 'ns'), x: 160, y: 150, color: '#10B981' }, // North Sumatra
       { ...CLIENT_REGIONS.find(c => c.id === 'lam'), x: 190, y: 260, color: '#6EE7B7' }, // Lampung
       { ...CLIENT_REGIONS.find(c => c.id === 'ban'), x: 210, y: 300, color: '#34D399' }, // Banten
       { ...CLIENT_REGIONS.find(c => c.id === 'jkt'), x: 240, y: 300, color: '#065F46' }, // Jakarta
       { ...CLIENT_REGIONS.find(c => c.id === 'ej'), x: 400, y: 310, color: '#047857' }, // East Java
-    ].filter(n => n.id) as (ClientRegion & { x: number, y: number, color: string })[];
+    ];
+
+    // Filter out any nodes where the region wasn't found (id is undefined)
+    const nodes = rawNodes.filter(n => n.id) as (ClientRegion & { x: number, y: number, color: string })[];
 
     // Draw Links
     const links = [
@@ -56,7 +59,7 @@ const ClientMap = React.memo(({ onHover, hoveredId }: { onHover: (region: Client
       { source: nodes[1], target: nodes[2] },
       { source: nodes[2], target: nodes[3] },
       { source: nodes[3], target: nodes[4] },
-    ];
+    ].filter(l => l.source && l.target); // Safe filter
 
     svg.append("g")
        .attr("class", "links")
@@ -134,14 +137,11 @@ const ClientMap = React.memo(({ onHover, hoveredId }: { onHover: (region: Client
        .attr("paint-order", "stroke");
 
     // Attach Event Listeners
-    // Added click for mobile support
     nodeGroups
        .on("mouseenter", (event, d) => {
           onHover(d);
        })
        .on("mouseleave", (event, d) => {
-           // We don't automatically clear on mouse leave on touch devices usually,
-           // but keeping consistent logic here. The user can tap background to clear.
           onHover(null);
        })
        .on("click", (event, d) => {
@@ -192,10 +192,10 @@ const ClientMap = React.memo(({ onHover, hoveredId }: { onHover: (region: Client
 
   return (
     <svg 
-      ref={svgRef} 
-      viewBox="0 0 800 400" 
-      className="w-full h-full max-h-[500px]"
-      style={{ filter: 'drop-shadow(0 4px 6px rgb(0 0 0 / 0.05))' }}
+      ref={svgRef}
+      viewBox="0 0 800 400"
+      className="w-full h-full"
+      style={{ overflow: 'visible', maxWidth: '100%', height: 'auto' }}
     />
   );
 });
@@ -203,10 +203,9 @@ const ClientMap = React.memo(({ onHover, hoveredId }: { onHover: (region: Client
 const Clients: React.FC = () => {
   const [hoveredRegion, setHoveredRegion] = useState<ClientRegion | null>(null);
 
-  // Stable callback for D3
-  const handleHover = React.useCallback((region: ClientRegion | null) => {
+  const handleHover = (region: ClientRegion | null) => {
     setHoveredRegion(region);
-  }, []);
+  };
 
   return (
     <div className="bg-background min-h-screen">
@@ -217,7 +216,6 @@ const Clients: React.FC = () => {
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=2070" 
                 alt="Business Partnership in Agriculture" 
                 className="w-full h-full object-cover"
-                fetchPriority="high"
                 loading="eager"
              />
              <div className="absolute inset-0 bg-gradient-to-b from-green-900/90 to-green-800/80"></div>
@@ -267,7 +265,7 @@ const Clients: React.FC = () => {
              <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
                 <h3 className="text-xl font-heading font-bold text-slate-900 mb-4">Regional Breakdown</h3>
                 <div className="space-y-3">
-                  {CLIENT_REGIONS.sort((a,b) => b.count - a.count).map(region => (
+                  {[...CLIENT_REGIONS].sort((a,b) => b.count - a.count).map(region => (
                       <div 
                         key={region.id} 
                         className={`p-4 rounded-lg transition-all cursor-pointer border-l-4 ${hoveredRegion?.id === region.id ? 'bg-green-50 border-primary shadow-md scale-[1.02]' : 'bg-white border-slate-200 hover:bg-slate-50'}`}

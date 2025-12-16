@@ -15,8 +15,6 @@ const Home: React.FC = () => {
             src="https://images.unsplash.com/photo-1625246333195-58197bd4773d?auto=format&fit=crop&q=80&w=2070" 
             alt="Modern Agriculture Technology Drone" 
             className="w-full h-full object-cover"
-            // High priority for Largest Contentful Paint (LCP)
-            fetchPriority="high"
             loading="eager"
             onError={(e) => {
               e.currentTarget.src = "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&q=80&w=2070"; // Fallback

@@ -13,7 +13,6 @@ const FertilizerRegistration: React.FC = () => {
                 src="https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&q=80&w=2070" 
                 alt="Fertilizer and Growth" 
                 className="w-full h-full object-cover"
-                fetchPriority="high"
                 loading="eager"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-800/60"></div>

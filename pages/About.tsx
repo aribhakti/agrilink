@@ -25,7 +25,6 @@ const About: React.FC = () => {
                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2070" 
                 alt="Team Meeting" 
                 className="w-full h-full object-cover"
-                fetchPriority="high"
                 loading="eager"
             />
             <div className="absolute inset-0 bg-green-900/80 mix-blend-multiply"></div>
