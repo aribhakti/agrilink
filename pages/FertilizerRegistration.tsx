@@ -1,122 +1,146 @@
 import React, { useState } from 'react';
-import { CheckCircle2, FileText, FlaskConical, PenTool, Send, Award } from 'lucide-react';
+import { CheckCircle2, FileText, FlaskConical, PenTool, Send, Award, Info } from 'lucide-react';
+import ScrollReveal from '../components/ScrollReveal';
+
+const TOOLTIP_DATA: Record<string, string> = {
+  "Deed of Establishment (Akta)": "Mandatory legal document certifying company formation and legal status in Indonesia.",
+  "Tax ID (NPWP)": "Company taxpayer identification number required for all regulatory filings and financial compliance.",
+  "Business ID (NIB)": "Single identity number for businesses under the OSS (Online Single Submission) system.",
+  "Director's ID Card (KTP)": "Identity verification of the company's legal representative or person in charge.",
+  "Letter of Authorization": "Formal permission allowing PT. ATS to handle the registration process on your company's behalf.",
+  "Trademark Certificate (HAKI)": "Crucial proof of brand ownership, required to prevent legal conflicts and market overlaps.",
+  "Product Label Design": "Labels must strictly follow Indonesian language laws and Ministry of Agriculture specifications.",
+  "Letter of Appointment (LoA)": "Legal agreement between the manufacturer and the distributor in Indonesia.",
+  "SNI Certificate (if applicable)": "Certificate of compliance for products requiring Indonesian National Standard markers.",
+  "Manufacturing Process Flowchart": "Technical document detailing the steps of production for quality verification.",
+  "Certificate of Analysis (CoA)": "Laboratory-certified results detailing the product's chemical composition and nutrients."
+};
+
+interface RequirementItemProps {
+  req: string;
+  icon: React.ElementType;
+}
 
 const FertilizerRegistration: React.FC = () => {
   const [reqView, setReqView] = useState<'admin' | 'tech'>('admin');
+  const [hoveredReq, setHoveredReq] = useState<string | null>(null);
+
+  const RequirementItem: React.FC<RequirementItemProps> = ({ req, icon: Icon }) => (
+    <li 
+      className="relative flex items-center text-slate-700 p-4 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-primary/20 cursor-help group"
+      onMouseEnter={() => setHoveredReq(req)}
+      onMouseLeave={() => setHoveredReq(null)}
+    >
+      <Icon className="w-5 h-5 text-secondary mr-3 flex-shrink-0 group-hover:scale-125 transition-transform" />
+      <span className="font-semibold text-sm md:text-base flex-grow leading-tight">{req}</span>
+      <Info className="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity ml-2" />
+      
+      {hoveredReq === req && (
+        <div className="absolute left-0 bottom-full mb-3 z-50 w-72 bg-slate-900 text-white text-xs p-4 rounded-xl shadow-2xl animate-fadeIn pointer-events-none leading-relaxed border border-white/10">
+          <div className="font-bold text-accent mb-1 uppercase tracking-tighter">Regulatory Context</div>
+          {TOOLTIP_DATA[req] || "Required documentation for submission."}
+          <div className="absolute top-full left-6 -translate-y-1 border-8 border-transparent border-t-slate-900"></div>
+        </div>
+      )}
+    </li>
+  );
 
   return (
     <div className="bg-background min-h-screen pb-20">
-      {/* Hero */}
-      <div className="relative bg-primary text-white py-16 md:py-24 overflow-hidden">
+      {/* Hero - Eager Loading with Optimized Source representing Fertilizer Application */}
+      <div className="relative bg-primary text-white py-24 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
             <img 
-                src="https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&q=80&w=2070" 
-                alt="Fertilizer and Growth" 
-                className="w-full h-full object-cover"
+                src="https://images.unsplash.com/photo-1625246333195-58197bd4773d?auto=format&fit=crop&q=80&w=1600" 
+                alt="High-Tech Fertilizer Application in Field" 
+                className="w-full h-full object-cover opacity-20"
                 loading="eager"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-800/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-green-950 via-green-900/95 to-green-800/40"></div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 animate-fadeIn">
-          <h1 className="text-3xl md:text-5xl font-heading font-bold mb-4 drop-shadow-sm leading-tight">Comprehensive Fertilizer Registration</h1>
-          <p className="text-green-50 text-base md:text-lg max-w-2xl font-medium">
-            Based on Law Number 12 of 1992 concerning Plant Cultivation Systems. We handle the complexity so you can focus on production.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollReveal animation="fade-up">
+            <h1 className="text-4xl md:text-7xl font-heading font-bold mb-6 drop-shadow-md leading-tight">Fertilizer Registration</h1>
+            <p className="text-green-50 text-lg md:text-2xl max-w-3xl font-medium opacity-90 leading-relaxed">
+              Based on Law No. 12/1992. We streamline the journey from technical verification to Ministry of Agriculture approval.
+            </p>
+          </ScrollReveal>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
-        {/* Scope of Services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-secondary transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-            <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-secondary transition-colors">Organic Fertilizer</h3>
-            <p className="text-slate-600">Registration for Solid & Liquid formulations, ensuring organic certification compliance.</p>
-          </div>
-          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-primary transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-            <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors">Inorganic Fertilizer</h3>
-            <p className="text-slate-600">Macro, Micro, and mixed nutrient compounds. Comprehensive NPK analysis handling.</p>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20">
+        {/* Scopes */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+          <ScrollReveal animation="slide-left">
+            <div className="bg-white p-10 md:p-12 rounded-[2rem] shadow-xl border-t-8 border-secondary card-lift group cursor-default h-full">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-secondary transition-colors">Organic Fertilizer</h3>
+              <p className="text-slate-600 text-lg leading-relaxed">Pioneering registration protocols for Solid & Liquid organic solutions. We handle complex bio-certification standards with surgical precision.</p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal animation="slide-right">
+            <div className="bg-white p-10 md:p-12 rounded-[2rem] shadow-xl border-t-8 border-primary card-lift group cursor-default h-full">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-primary transition-colors">Inorganic Fertilizer</h3>
+              <p className="text-slate-600 text-lg leading-relaxed">Covering Macro, Micro, and NPK blends. Our experts ensure high-efficiency lab testing management for large-scale industrial producers.</p>
+            </div>
+          </ScrollReveal>
         </div>
 
-        {/* Roadmap */}
-        <div className="mb-20">
-          <h2 className="text-2xl font-heading font-bold text-center mb-12 text-slate-900">The Registration Roadmap</h2>
-          <div className="relative">
-            {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-200 -z-10 transform -translate-y-1/2"></div>
+        {/* Requirements */}
+        <ScrollReveal animation="fade-up">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100 mb-24">
+            <div className="flex border-b border-slate-100 bg-slate-50/50">
+                <button 
+                  onClick={() => setReqView('admin')}
+                  className={`flex-1 py-8 text-center font-bold transition-all text-sm md:text-xl ${reqView === 'admin' ? 'bg-white text-primary border-b-4 border-primary shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-white/50'}`}
+                >
+                  Administrative Requirements
+                </button>
+                <button 
+                  onClick={() => setReqView('tech')}
+                  className={`flex-1 py-8 text-center font-bold transition-all text-sm md:text-xl ${reqView === 'tech' ? 'bg-white text-primary border-b-4 border-primary shadow-sm' : 'text-slate-400 hover:text-slate-600 hover:bg-white/50'}`}
+                >
+                  Technical Requirements
+                </button>
+            </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
-               {[
-                 { title: "Sample Seal", icon: <FlaskConical className="w-6 h-6"/>, step: 1 },
-                 { title: "Lab Analysis", icon: <CheckCircle2 className="w-6 h-6"/>, step: 2 },
-                 { title: "Reporting", icon: <FileText className="w-6 h-6"/>, step: 3 },
-                 { title: "Submission", icon: <Send className="w-6 h-6"/>, step: 4 },
-                 { title: "Approval", icon: <Award className="w-6 h-6"/>, step: 5 }
-               ].map((item, idx) => (
-                 <div key={idx} className={`group flex flex-col items-center text-center bg-white md:bg-transparent p-4 md:p-0 rounded-lg shadow-sm md:shadow-none border md:border-none ${idx === 4 ? 'col-span-2 md:col-span-1' : ''} cursor-default`}>
-                    <div className="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center mb-4 shadow-lg z-10 border-4 border-white transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:bg-secondary group-hover:rotate-6">
-                       {item.icon}
-                    </div>
-                    <h4 className="font-bold text-slate-900 transition-colors group-hover:text-secondary">Step {item.step}</h4>
-                    <p className="text-sm text-slate-600 font-medium">{item.title}</p>
-                 </div>
-               ))}
+            <div className="p-8 md:p-16 bg-white min-h-[450px]">
+                <div className="mb-8 flex items-center gap-2 text-slate-400 bg-slate-100/50 p-3 rounded-xl inline-flex">
+                  <Info className="w-5 h-5 text-secondary" />
+                  <p className="text-xs font-bold uppercase tracking-widest px-2">Hover for regulatory insight</p>
+                </div>
+                {reqView === 'admin' ? (
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
+                    {["Deed of Establishment (Akta)", "Tax ID (NPWP)", "Business ID (NIB)", "Director's ID Card (KTP)", "Letter of Authorization", "Trademark Certificate (HAKI)"].map((req, i) => (
+                      <RequirementItem key={req} req={req} icon={CheckCircle2} />
+                    ))}
+                  </ul>
+                ) : (
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
+                    {["Product Label Design", "Letter of Appointment (LoA)", "SNI Certificate (if applicable)", "Manufacturing Process Flowchart", "Certificate of Analysis (CoA)"].map((req, i) => (
+                      <RequirementItem key={req} req={req} icon={PenTool} />
+                    ))}
+                  </ul>
+                )}
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
-        {/* Requirements Toggle */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
-           <div className="flex border-b border-slate-100">
-              <button 
-                onClick={() => setReqView('admin')}
-                className={`flex-1 py-4 md:py-5 text-center font-bold transition-all text-xs md:text-base active:bg-slate-100 ${reqView === 'admin' ? 'bg-green-50 text-primary border-b-2 border-primary' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'}`}
-              >
-                Administrative Requirements
-              </button>
-              <button 
-                onClick={() => setReqView('tech')}
-                className={`flex-1 py-4 md:py-5 text-center font-bold transition-all text-xs md:text-base active:bg-slate-100 ${reqView === 'tech' ? 'bg-green-50 text-primary border-b-2 border-primary' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'}`}
-              >
-                Technical Requirements
-              </button>
-           </div>
-           
-           <div className="p-6 md:p-8 bg-white min-h-[300px]">
-              {reqView === 'admin' ? (
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fadeIn">
-                   {[
-                     "Deed of Establishment (Akta)",
-                     "Tax ID (NPWP)",
-                     "Business ID (NIB)",
-                     "Director's ID Card (KTP)",
-                     "Letter of Authorization",
-                     "Trademark Certificate (HAKI)"
-                   ].map((req, i) => (
-                     <li key={i} className="flex items-center text-slate-700 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-                        <CheckCircle2 className="w-5 h-5 text-secondary mr-3 flex-shrink-0" />
-                        <span className="font-medium">{req}</span>
-                     </li>
-                   ))}
-                </ul>
-              ) : (
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fadeIn">
-                   {[
-                     "Product Label Design",
-                     "Letter of Appointment (LoA)",
-                     "SNI Certificate (if applicable)",
-                     "Manufacturing Process Flowchart",
-                     "Certificate of Analysis (CoA)"
-                   ].map((req, i) => (
-                     <li key={i} className="flex items-center text-slate-700 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-                        <PenTool className="w-5 h-5 text-accent mr-3 flex-shrink-0" />
-                        <span className="font-medium">{req}</span>
-                     </li>
-                   ))}
-                </ul>
-              )}
-           </div>
-        </div>
+        {/* Content Image - Lazy Loaded representing Quality Growth */}
+        <ScrollReveal animation="scale-in">
+          <div className="rounded-[2.5rem] overflow-hidden h-[400px] md:h-[500px] relative group shadow-2xl border border-slate-100">
+            <img 
+              src="https://images.unsplash.com/photo-1530836361253-efad5cb2f6de?auto=format&fit=crop&q=80&w=1200" 
+              alt="Healthy Crops Growth" 
+              className="w-full h-full object-cover transition-transform duration-[5s] group-hover:scale-110"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div className="absolute bottom-12 left-12 text-white max-w-2xl">
+              <h4 className="text-3xl font-bold mb-4">Market Readiness</h4>
+              <p className="text-slate-200 text-lg leading-relaxed">Our registration expertise ensures your biological and chemical products enter the Indonesian market with absolute legal integrity.</p>
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </div>
   );

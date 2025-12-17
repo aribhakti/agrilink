@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agrilink Teknologi Solusi - PT. ATS</title>
     
-    <!-- Performance Optimization: Preconnect to critical domains -->
+    <!-- Performance Optimization -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,35 +20,39 @@
         theme: {
           extend: {
             colors: {
-              // Darkened primary slightly to #15803d (Green 700) for better text contrast on white (WCAG AA)
               primary: '#15803d', 
-              secondary: '#0288d1', // Blue from Logo Leaf
-              accent: '#c0ca33', // Lime/Light Green from Logo Leaf
-              dark: '#0f172a', // Slate 900
-              background: '#f8fafc', // Slate 50
+              secondary: '#0288d1', 
+              accent: '#c0ca33', 
+              dark: '#0f172a', 
+              background: '#f8fafc', 
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
               heading: ['Poppins', 'sans-serif'],
             },
             animation: {
-              'scroll': 'scroll 20s linear infinite',
-              'fadeIn': 'fadeIn 0.5s ease-out forwards',
-              'wiggle': 'wiggle 1s ease-in-out infinite',
-              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'scroll': 'scroll 40s linear infinite',
+              'fadeIn': 'fadeIn 0.4s ease-out forwards',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 5s ease-in-out infinite',
+              'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
             },
             keyframes: {
               scroll: {
                 '0%': { transform: 'translateX(0)' },
-                '100%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(-50%)' },
               },
               fadeIn: {
-                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '0%': { opacity: '0', transform: 'translateY(15px)' },
                 '100%': { opacity: '1', transform: 'translateY(0)' },
               },
-              wiggle: {
-                '0%, 100%': { transform: 'rotate(-3deg)' },
-                '50%': { transform: 'rotate(3deg)' },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-15px)' },
+              },
+              bounceSubtle: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-5px)' },
               }
             }
           }
@@ -56,24 +60,30 @@
       }
     </script>
     <style>
-      /* Custom scrollbar for better aesthetics */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f5f9; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #15803d; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #166534; 
-      }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f5f9; }
+      ::-webkit-scrollbar-thumb { background: #15803d; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #166534; }
+      
       .mask-linear-fade {
         mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
       }
+
+      .card-lift {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      }
+      .card-lift:hover {
+        transform: translateY(-8px) scale(1.015);
+        box-shadow: 0 20px 40px -10px rgba(21, 128, 61, 0.12);
+      }
+
+      .input-glow:focus {
+        border-color: #0288d1;
+        box-shadow: 0 0 0 4px rgba(2, 136, 209, 0.12);
+      }
+
+      img { content-visibility: auto; }
     </style>
   <script type="importmap">
 {
