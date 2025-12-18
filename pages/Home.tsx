@@ -27,7 +27,7 @@ const Home: React.FC = () => {
       <section className="relative bg-primary overflow-hidden min-h-[600px] lg:min-h-[700px] flex items-center group">
         <ParticleBackground />
         
-        {/* Background Layer - High quality landscape representing Agriculture */}
+        {/* Background Layer */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <div className="w-full h-full overflow-hidden">
             <img 
@@ -41,7 +41,6 @@ const Home: React.FC = () => {
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
-          {/* Hero Content - Centered for better focus after removing foreground image */}
           <div className="max-w-3xl text-center lg:text-left">
             <ScrollReveal animation="fade-in">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold mb-6 lg:mb-10 shadow-inner group/badge cursor-default">
@@ -156,7 +155,6 @@ const Home: React.FC = () => {
                   </div>
                 </Link>
               ))}
-              {/* Duplicate for seamless loop */}
               {[...Array(10)].map((_, i) => (
                 <Link to="/clients" key={`dup-${i}`} className="mx-8 lg:mx-14 inline-block group">
                   <div className="w-48 h-24 lg:w-64 lg:h-32 bg-slate-50 rounded-[2rem] flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-700 opacity-50 group-hover:opacity-100 border border-slate-100 group-hover:border-primary/20 group-hover:shadow-2xl group-hover:bg-white group-hover:-translate-y-2">

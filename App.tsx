@@ -6,8 +6,6 @@ import Footer from './components/Footer';
 import WhatsAppFAB from './components/WhatsAppFAB';
 import { Loader2 } from 'lucide-react';
 
-// Lazy Load Pages to optimize initial load performance
-// This separates heavy libraries (like D3 in Clients page) from the main bundle
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const FertilizerRegistration = lazy(() => import('./pages/FertilizerRegistration'));
@@ -17,7 +15,6 @@ const Clients = lazy(() => import('./pages/Clients'));
 const News = lazy(() => import('./pages/News'));
 const StatusPortal = lazy(() => import('./pages/StatusPortal'));
 
-// Loading Fallback Component
 const PageLoader = () => (
   <div className="flex flex-col items-center justify-center min-h-[60vh]">
     <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
@@ -42,10 +39,7 @@ const App: React.FC = () => {
                 <Route path="/clients" element={<Clients />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/status" element={<StatusPortal />} />
-                
-                {/* Fallback/Placeholder routes */}
                 <Route path="/services" element={<Navigate to="/services/fertilizer" replace />} />
-                
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Suspense>
